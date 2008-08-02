@@ -12,7 +12,6 @@ lib/giternal/app.rb
 lib/giternal/repository.rb
 lib/giternal/version.rb
 lib/giternal/yaml_config.rb
-lib/tasks/giternal.rake
 script/console
 script/destroy
 script/generate
