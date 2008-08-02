@@ -9,7 +9,15 @@ module Giternal
     def update(target_dir)
       target_path = File.expand_path(File.join(target_dir, @rel_path))
       FileUtils.mkdir_p target_path unless File.exist?(target_path)
-      `cd #{target_path} && git clone #{@repo_url} #{@name}`
+      if File.exist?(target_path + "/#{@name}")
+        if !File.exist?(target_path + "/#{@name}/.git")
+          raise "Directory '#{@name}' exists but is not a git repository"
+        else
+          `cd #{target_path}/#{@name} && git pull 2>&1`
+        end
+      else
+        `cd #{target_path} && git clone #{@repo_url} #{@name}`
+      end
       true
     end
   end

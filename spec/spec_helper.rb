@@ -19,9 +19,13 @@ module GiternalTest
   end
 
   def self.create_repo(name)
-    repo_path = source_dir(name)
-    FileUtils.mkdir_p(repo_path)
-    `cd #{repo_path} && git init && echo #{name} > #{name} && git add #{name} && git commit -m "added #{name}"`
+    FileUtils.mkdir_p(source_dir(name))
+    `cd #{source_dir(name)} && git init`
+    add_to_repo name, name
+  end
+
+  def self.add_to_repo(repo_name, file)
+    `cd #{source_dir(repo_name)} && echo #{file} > #{file} && git add #{file} && git commit -m "added #{file}"`
   end
 
   def self.wipe_repos
