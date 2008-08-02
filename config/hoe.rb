@@ -1,7 +1,7 @@
 require 'giternal/version'
 
-AUTHOR = 'FIXME full name'  # can also be an array of Authors
-EMAIL = "FIXME email"
+AUTHOR = 'Pat Maddox'  # can also be an array of Authors
+EMAIL = "pat.maddox@gmail.com"
 DESCRIPTION = "description of gem"
 GEM_NAME = 'giternal' # what ppl will type to install your gem
 RUBYFORGE_PROJECT = 'giternal' # The unix name for your project

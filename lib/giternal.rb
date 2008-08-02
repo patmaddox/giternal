@@ -4,3 +4,5 @@ $:.unshift(File.dirname(__FILE__)) unless
 module Giternal
   
 end
+
+require 'giternal/repository'
