@@ -1,26 +1,42 @@
 = giternal
 
-* FIX 
-
 == DESCRIPTION:
 
-FIX (describe your package)
-
-== FEATURES/PROBLEMS:
-
-* FIX (list of features or problems)
+Giternal provides dead-simple management of external git
+dependencies. It only stores a small bit of metadata, letting you
+actively develop in any of the repos. Come deploy time, you can easily
+freeze freeze all the dependencies to particular versions
 
 == SYNOPSIS:
 
-  FIX (code sample of usage)
+In your project root, create a file called config/giternal.yml.  This
+file should contain a list of externals in the following format:
+
+name:
+  repo: git://url/to/repo.git
+  path: local/path/dir
+
+For example, to add the rspec and rspec-rails plugins to your project,
+add the following to config/giternal.yml
+
+rspec:
+  repo: git://github.com/dchelimsky/rspec.git
+  path: vendor/plugins
+rspec-rails:
+  repo: git://github.com/dchelimsky/rspec-rails.git
+  path: vendor/plugins
+
+Now in project root, run 'sake giternal:update' to update all of your
+git dependencies.
 
 == REQUIREMENTS:
 
-* FIX (list of requirements)
+* sake
 
 == INSTALL:
 
-* FIX (sudo gem install, anything else)
+* sudo gem install giternal
+* sudo sake -i 'http://giternal.rubyforge.org/git?p=giternal.git;a=blob_plain;f=lib/tasks/giternal.rake;hb=HEAD'
 
 == LICENSE:
 

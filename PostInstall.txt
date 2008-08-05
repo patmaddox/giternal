@@ -1,20 +1,6 @@
-In your project root, create a file called config/giternal.yml.  This
-file should contain a list of externals in the following format:
+sudo sake -i 'http://giternal.rubyforge.org/git?p=giternal.git;a=blob_plain;f=lib/tasks/giternal.rake;hb=HEAD'
 
-name:
-  repo: git://url/to/repo.git
-  path: local/path/dir
-
-For example, to add the rspec and rspec-rails plugins to your project,
-add the following to config/giternal.yml
-
-rspec:
-  repo: git://github.com/dchelimsky/rspec.git
-  path: vendor/plugins
-rspec-rails:
-  repo: git://github.com/dchelimsky/rspec-rails.git
-  path: vendor/plugins
-
+** See README.txt **
 For more information on giternal, see http://giternal.rubyforge.org
 
 
