@@ -1,5 +1,0 @@
-#!/usr/bin/env ruby
-require "rubygems"
-require "giternal"
-
-Giternal::App.new(FileUtils.pwd).run
