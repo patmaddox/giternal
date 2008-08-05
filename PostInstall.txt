@@ -1,6 +1,8 @@
+** See README.txt **
+
+** Run the following command **
 sudo sake -i 'http://giternal.rubyforge.org/git?p=giternal.git;a=blob_plain;f=lib/tasks/giternal.rake;hb=HEAD'
 
-** See README.txt **
 For more information on giternal, see http://giternal.rubyforge.org
 
 
