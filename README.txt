@@ -29,6 +29,12 @@ rspec-rails:
 Now in project root, run 'sake giternal:update' to update all of your
 git dependencies.
 
+== NOTES:
+
+* You're probably using git for your own version control...and if so, you need to add the giternal'd paths to .gitignore.  You don't want to check them into version control!!
+
+* Deploying with vlad or capistrano simply requires you to run 'sake giternal:update' after the code has been checked out
+
 == REQUIREMENTS:
 
 * sake
