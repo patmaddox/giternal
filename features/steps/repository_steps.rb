@@ -28,11 +28,9 @@ class GiternalHelper
     config_dir = tmp_path + '/main_repo/config'
     FileUtils.mkdir(config_dir) unless File.directory?(config_dir)
     Dir.chdir(config_dir) do
-      File.open("giternal.yml", "w") do |file|
-        file << "#{repo_name}:\n"
-        file << "  repo: #{external_path(repo_name)}\n"
-        file << "  path: dependencies\n"
-      end
+      `echo #{repo_name}: >> giternal.yml`
+      `echo '  repo: #{external_path(repo_name)}' >> giternal.yml`
+      `echo '  path: dependencies' >> giternal.yml`
     end
   end
 

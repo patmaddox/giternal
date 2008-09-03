@@ -8,3 +8,10 @@ Feature: Checking out and updating externals
     And 'first_external' is not yet checked out
     When I update the externals
     Then 'first_external' should be checked out
+
+  Scenario: Multiple externals
+    Given an external repository named 'first_external'
+    And an external repository named 'second_external'
+    When I update the externals
+    Then 'first_external' should be checked out
+    And 'second_external' should be checked out
