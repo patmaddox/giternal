@@ -59,6 +59,12 @@ class GiternalHelper
     end
   end
 
+  def self.freeze_externals
+    Dir.chdir(tmp_path + '/main_repo') do
+      `rake -f #{sakefile_path} giternal:freeze`
+    end
+  end
+
   def self.sakefile_path
     File.expand_path(tmp_path + '/../../lib/tasks/giternal.rake')
   end
@@ -79,6 +85,24 @@ def be_up_to_date
     File.directory?(GiternalHelper.checked_out_path(repo_name)).should == true
     GiternalHelper.repo_contents(GiternalHelper.checked_out_path(repo_name)) ==
       GiternalHelper.repo_contents(GiternalHelper.external_path(repo_name))
+  end
+end
+
+def be_a_git_repo
+  Spec::Matchers::SimpleMatcher.new("a giternal'd repository") do |repo_name|
+    File.directory?(GiternalHelper.checked_out_path(repo_name) + '/.git')
+  end
+end
+
+def be_added_to_commit_index
+  Spec::Matchers::SimpleMatcher.new("a giternal'd repository") do |repo_name|
+    Dir.chdir(GiternalHelper.tmp_path + '/main_repo') do
+      status = `git status`
+      flattened_status = status.split("\n").join(" ")
+      to_be_committed_regex = /new file:\w+dependencies\/#{repo_name}/
+      untracked_files_regex = /Untracked files:.*#{repo_name}/
+      status =~ to_be_committed_regex && !(flattened_status =~ untracked_files_regex)
+    end
   end
 end
 
@@ -113,6 +137,10 @@ When "I update the externals" do
   GiternalHelper.update_externals
 end
 
+When "I freeze the externals" do
+  GiternalHelper.freeze_externals
+end
+
 Then /'(.*)' should be checked out/ do |repo_name|
   repo_name.should be_up_to_date
 end
@@ -123,4 +151,12 @@ end
 
 Then /'(.*)' should not be up to date/ do |repo_name|
   repo_name.should_not be_up_to_date
+end
+
+Then /'(.*)' should no longer be a git repo/ do |repo_name|
+  repo_name.should_not be_a_git_repo
+end
+
+Then /'(.*)' should be added to the commit index/ do |repo_name|
+  repo_name.should be_added_to_commit_index
 end
