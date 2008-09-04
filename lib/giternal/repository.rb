@@ -20,5 +20,10 @@ module Giternal
       end
       true
     end
+
+    def freezify(target_dir)
+      target_path = File.expand_path(File.join(target_dir, @rel_path, @name))
+      FileUtils.mv(target_path + '/.git', target_path + '/.git.frozen')
+    end
   end
 end

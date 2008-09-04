@@ -30,5 +30,21 @@ module Giternal
         @repository.update GiternalTest.base_project_dir
       }.should raise_error(/Directory 'foo' exists but is not a git repository/)
     end
+
+    describe "freezify" do
+      it "should move the .git dir to .git.frozen" do
+        GiternalTest.create_repo('main')
+        GiternalTest.create_repo('external')
+        @repository = Repository.new('external', GiternalTest.source_dir('external'),
+                                     'deps')
+        @main_dir = GiternalTest.base_project_dir + '/main'
+        @repository.update @main_dir
+
+        File.directory?(@main_dir + '/deps/external/.git').should be_true
+        @repository.freezify(@main_dir)
+        File.directory?(@main_dir + '/deps/external/.git.frozen').should be_true
+        File.directory?(@main_dir + '/deps/external/.git').should be_false
+      end
+    end
   end
 end
