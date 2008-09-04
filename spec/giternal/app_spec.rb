@@ -22,7 +22,7 @@ module Giternal
       end
 
       it "should create a config from the config file" do
-        YamlConfig.should_receive(:new).with("yaml config").and_return @mock_config
+        YamlConfig.should_receive(:new).with('some_fake_dir', "yaml config").and_return @mock_config
         @app.config
       end
     end
@@ -35,7 +35,7 @@ module Giternal
       end
 
       it "should update each of the repositories" do
-        @mock_repo.should_receive(:update).with('some_fake_dir')
+        @mock_repo.should_receive(:update)
         @app.update
       end
 

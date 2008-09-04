@@ -5,7 +5,7 @@ module Giternal
     end
 
     def update
-      config.each_repo {|r| r.update(@base_dir) }
+      config.each_repo {|r| r.update }
     end
 
     def freezify
@@ -21,7 +21,7 @@ module Giternal
         exit 1
       end
 
-      @config = YamlConfig.new File.read(config_file)
+      @config = YamlConfig.new(@base_dir, File.read(config_file))
     end
   end
 end
