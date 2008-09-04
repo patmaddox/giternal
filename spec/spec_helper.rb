@@ -7,6 +7,7 @@ end
 
 $:.unshift(File.dirname(__FILE__) + '/../lib')
 require 'giternal'
+require 'fileutils'
 
 module GiternalTest
   def self.base_project_dir
