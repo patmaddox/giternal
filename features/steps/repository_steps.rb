@@ -3,17 +3,22 @@ $:.unshift(File.dirname(__FILE__) + '/../../lib')
 require 'giternal'
 
 class GiternalHelper
-  @@tmp_path = File.expand_path(File.dirname(__FILE__) + '/../tmp')
+  @@giternal_base = File.expand_path(File.dirname(__FILE__) + '/../../')
   
   def self.create_main_repo
     FileUtils.mkdir_p tmp_path
     Dir.chdir(tmp_path) do
       FileUtils.mkdir "main_repo"
+      `cd main_repo && git init`
     end
   end
 
   def self.tmp_path
-    @@tmp_path
+    "/tmp/giternal_test"
+  end
+
+  def self.giternal_base
+    @@giternal_base
   end
 
   def self.create_repo(repo_name)
@@ -66,7 +71,7 @@ class GiternalHelper
   end
 
   def self.sakefile_path
-    File.expand_path(tmp_path + '/../../lib/tasks/giternal.rake')
+    File.expand_path(giternal_base + '/lib/tasks/giternal.rake')
   end
 
   def self.repo_contents(path)
@@ -99,7 +104,7 @@ def be_added_to_commit_index
     Dir.chdir(GiternalHelper.tmp_path + '/main_repo') do
       status = `git status`
       flattened_status = status.split("\n").join(" ")
-      to_be_committed_regex = /new file:\w+dependencies\/#{repo_name}/
+      to_be_committed_regex = /new file:\W+dependencies\/#{repo_name}/
       untracked_files_regex = /Untracked files:.*#{repo_name}/
       status =~ to_be_committed_regex && !(flattened_status =~ untracked_files_regex)
     end
