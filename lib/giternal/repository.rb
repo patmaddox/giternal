@@ -23,6 +23,8 @@ module Giternal
 
     def freezify
       FileUtils.mv(repo_path + '/.git', repo_path + '/.git.frozen')
+      `cd #{@base_dir} && git add #{repo_path}`
+      true
     end
 
     private
