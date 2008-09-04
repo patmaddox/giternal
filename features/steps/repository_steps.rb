@@ -117,7 +117,7 @@ Before do
 end
 
 After do
-#  GiternalHelper.clean!
+  GiternalHelper.clean!
 end
 
 Given /an external repository named '(.*)'/ do |repo_name|
