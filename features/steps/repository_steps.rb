@@ -74,6 +74,14 @@ class GiternalHelper
   end
 end
 
+def be_up_to_date
+  Spec::Matchers::SimpleMatcher.new("a giternal'd repository") do |repo_name|
+    File.directory?(GiternalHelper.checked_out_path(repo_name)).should == true
+    GiternalHelper.repo_contents(GiternalHelper.checked_out_path(repo_name)) ==
+      GiternalHelper.repo_contents(GiternalHelper.external_path(repo_name))
+  end
+end
+
 Before do
   GiternalHelper.clean!
   GiternalHelper.create_main_repo
@@ -93,12 +101,26 @@ Given /'(.*)' is not yet checked out/ do |repo_name|
   File.directory?(GiternalHelper.checked_out_path(repo_name)).should == false
 end
 
+Given "the externals are up to date" do
+  GiternalHelper.update_externals
+end
+
+Given /content is added to '(.*)'/ do |repo_name|
+  GiternalHelper.add_content(repo_name)
+end
+
 When "I update the externals" do
   GiternalHelper.update_externals
 end
 
 Then /'(.*)' should be checked out/ do |repo_name|
-  File.directory?(GiternalHelper.checked_out_path(repo_name)).should == true
-  GiternalHelper.repo_contents(GiternalHelper.checked_out_path(repo_name)).should ==
-    GiternalHelper.repo_contents(GiternalHelper.external_path(repo_name))
+  repo_name.should be_up_to_date
+end
+
+Then /'(.*)' should be up to date/ do |repo_name|
+  repo_name.should be_up_to_date
+end
+
+Then /'(.*)' should not be up to date/ do |repo_name|
+  repo_name.should_not be_up_to_date
 end

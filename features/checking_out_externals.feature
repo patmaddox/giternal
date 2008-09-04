@@ -15,3 +15,11 @@ Feature: Checking out and updating externals
     When I update the externals
     Then 'first_external' should be checked out
     And 'second_external' should be checked out
+
+  Scenario: Repository checked out then updated
+    Given an external repository named 'first_external'
+    And the externals are up to date
+    And content is added to 'first_external'
+    Then 'first_external' should not be up to date
+    When I update the externals
+    Then 'first_external' should be up to date
