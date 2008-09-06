@@ -22,17 +22,23 @@ module Giternal
     end
 
     def freezify
-      FileUtils.mv(repo_path + '/.git', repo_path + '/.git.frozen')
+      Dir.chdir(repo_path) do
+        `tar czf .git.frozen.tgz .git`
+        FileUtils.rm_rf('.git')
+      end
       `cd #{@base_dir} && git add #{repo_path}`
       true
     end
 
     def unfreezify
-      FileUtils.mv(repo_path + '/.git.frozen', repo_path + '/.git')
+      Dir.chdir(repo_path) do
+        `tar xzf .git.frozen.tgz`
+        FileUtils.rm('.git.frozen.tgz')
+      end
       `cd #{@base_dir} && git rm -r --cached #{repo_path}`
       true
     end
-    
+
     private
     def checkout_path
       File.expand_path(File.join(@base_dir, @rel_path))

@@ -8,7 +8,7 @@ module Giternal
                                    GiternalTest.source_dir('foo'),
                                    'deps')
     end
-    
+
     it "should check itself out to a dir" do
       @repository.update
       File.file?(GiternalTest.base_project_dir + '/deps/foo/foo').should be_true
@@ -33,7 +33,7 @@ module Giternal
     end
 
     describe "freezify" do
-      it "should move the .git dir to .git.frozen" do
+      before(:each) do
         GiternalTest.create_repo('main')
         GiternalTest.create_repo('external')
         @main_dir = GiternalTest.base_project_dir + '/main'
@@ -41,16 +41,22 @@ module Giternal
                                      GiternalTest.source_dir('external'),
                                      'deps')
         @repository.update
+      end
 
+      it "should archive the .git dir" do
+        @repository.freezify
+        File.file?(@main_dir + '/deps/external/.git.frozen.tgz').should be_true
+      end
+
+      it "should get rid of the .git dir" do
         File.directory?(@main_dir + '/deps/external/.git').should be_true
         @repository.freezify
-        File.directory?(@main_dir + '/deps/external/.git.frozen').should be_true
         File.directory?(@main_dir + '/deps/external/.git').should be_false
       end
     end
 
     describe "unfreezify" do
-      it "should move the .git.frozen dir to .git" do
+      before(:each) do
         GiternalTest.create_repo('main')
         GiternalTest.create_repo('external')
         @main_dir = GiternalTest.base_project_dir + '/main'
@@ -58,11 +64,17 @@ module Giternal
                                      GiternalTest.source_dir('external'),
                                      'deps')
         @repository.update
-
         @repository.freezify
+      end
+
+      it "should unarchive the .git dir" do
         @repository.unfreezify
         File.directory?(@main_dir + '/deps/external/.git').should be_true
-        File.directory?(@main_dir + '/deps/external/.git.frozen').should be_false
+      end
+
+      it "should remove the archived file" do
+        @repository.unfreezify
+        File.file?(@main_dir + '/deps/external/.git.frozen.tgz').should be_false
       end
     end
   end
