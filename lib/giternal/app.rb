@@ -12,6 +12,10 @@ module Giternal
       config.each_repo {|r| r.freezify }
     end
 
+    def unfreezify
+      config.each_repo {|r| r.unfreezify }
+    end
+
     def config
       return @config if @config
 

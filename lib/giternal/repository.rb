@@ -27,6 +27,12 @@ module Giternal
       true
     end
 
+    def unfreezify
+      FileUtils.mv(repo_path + '/.git.frozen', repo_path + '/.git')
+      `cd #{@base_dir} && git rm -r --cached #{repo_path}`
+      true
+    end
+    
     private
     def checkout_path
       File.expand_path(File.join(@base_dir, @rel_path))

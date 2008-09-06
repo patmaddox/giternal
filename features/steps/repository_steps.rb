@@ -70,6 +70,12 @@ class GiternalHelper
     end
   end
 
+  def self.unfreeze_externals
+    Dir.chdir(tmp_path + '/main_repo') do
+      `rake -f #{sakefile_path} giternal:unfreeze`
+    end
+  end
+  
   def self.sakefile_path
     File.expand_path(giternal_base + '/lib/tasks/giternal.rake')
   end
@@ -117,7 +123,7 @@ Before do
 end
 
 After do
-  GiternalHelper.clean!
+#  GiternalHelper.clean!
 end
 
 Given /an external repository named '(.*)'/ do |repo_name|
@@ -134,6 +140,10 @@ Given "the externals are up to date" do
   GiternalHelper.update_externals
 end
 
+Given "the externals are frozen" do
+  GiternalHelper.freeze_externals
+end
+
 Given /content is added to '(.*)'/ do |repo_name|
   GiternalHelper.add_content(repo_name)
 end
@@ -144,6 +154,10 @@ end
 
 When "I freeze the externals" do
   GiternalHelper.freeze_externals
+end
+
+When "I unfreeze the externals" do
+  GiternalHelper.unfreeze_externals
 end
 
 Then /'(.*)' should be checked out/ do |repo_name|
@@ -162,6 +176,14 @@ Then /'(.*)' should no longer be a git repo/ do |repo_name|
   repo_name.should_not be_a_git_repo
 end
 
+Then /'(.*)' should be a git repo/ do |repo_name|
+  repo_name.should be_a_git_repo
+end
+
 Then /'(.*)' should be added to the commit index/ do |repo_name|
   repo_name.should be_added_to_commit_index
+end
+
+Then /'(.*)' should be removed from the commit index/ do |repo_name|
+  repo_name.should_not be_added_to_commit_index
 end

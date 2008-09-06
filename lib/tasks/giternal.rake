@@ -19,4 +19,11 @@ namespace :giternal do
 
     Giternal::App.new(FileUtils.pwd).freezify
   end
+
+  desc "Unfreeze giternal repos"
+  task :unfreeze do
+    require_giternal
+
+    Giternal::App.new(FileUtils.pwd).unfreezify
+  end  
 end

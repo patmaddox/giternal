@@ -48,5 +48,22 @@ module Giternal
         File.directory?(@main_dir + '/deps/external/.git').should be_false
       end
     end
+
+    describe "unfreezify" do
+      it "should move the .git.frozen dir to .git" do
+        GiternalTest.create_repo('main')
+        GiternalTest.create_repo('external')
+        @main_dir = GiternalTest.base_project_dir + '/main'
+        @repository = Repository.new(@main_dir, 'external',
+                                     GiternalTest.source_dir('external'),
+                                     'deps')
+        @repository.update
+
+        @repository.freezify
+        @repository.unfreezify
+        File.directory?(@main_dir + '/deps/external/.git').should be_true
+        File.directory?(@main_dir + '/deps/external/.git.frozen').should be_false
+      end
+    end
   end
 end
