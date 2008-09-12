@@ -26,23 +26,40 @@ rspec-rails:
   repo: git://github.com/dchelimsky/rspec-rails.git
   path: vendor/plugins
 
-Now in project root, run 'sake giternal:update' to update all of your
+Now in project root, run 'giternal update' to update all of your
 git dependencies.
+
+== FREEZING AND UNFREEZING:
+
+Sometimes you want to freeze your dependencies, e.g. when deploying.
+This lets you create a self-contained deploy tag with all externals at
+a known, working version.  giternal will tar up the .git history dir
+for each external, and then add the external to your git index.  You
+can review all the changes before committing.
+
+giternal freeze
+
+Unfreezing, as you might guess, is the opposite of freezing.  It will
+remove your external dir from the git index, and extract each
+external's .git dir, restoring the history and allowing you to commit
+or fetch changes.
+
+giternal unfreeze
 
 == NOTES:
 
-* You're probably using git for your own version control...and if so, you need to add the giternal'd paths to .gitignore.  You don't want to check them into version control!!
+* You're probably using git for your own version control...and if so,
+  you need to add the giternal'd paths to .gitignore.  You don't want
+  to check them into version control!!
 
-* Deploying with vlad or capistrano simply requires you to run 'sake giternal:update' after the code has been checked out
-
-== REQUIREMENTS:
-
-* sake
+* Deploying with vlad or capistrano simply requires you to run
+  'giternal update' after the code has been checked out, if your
+  externals are not frozen.  If deploying a codebase with frozen
+  externals, there's nothing to do.
 
 == INSTALL:
 
 * sudo gem install giternal
-* sudo sake -i 'http://giternal.rubyforge.org/git?p=giternal.git;a=blob_plain;f=lib/tasks/giternal.rake;hb=HEAD'
 
 == LICENSE:
 

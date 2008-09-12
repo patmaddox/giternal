@@ -2,7 +2,6 @@
 History.txt
 License.txt
 Manifest.txt
-PostInstall.txt
 README.txt
 Rakefile
 bin/giternal
