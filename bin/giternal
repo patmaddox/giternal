@@ -1,6 +1,9 @@
 #!/usr/bin/env ruby
 require "rubygems"
-require "giternal"
+if File.exist?(File.dirname(__FILE__) + '/../lib/giternal.rb')
+  $:.unshift(File.dirname(__FILE__) + '/../lib')
+end
+require 'giternal'
 
 action = ARGV[0]
 available_actions = %w(update freeze unfreeze)
@@ -10,4 +13,4 @@ unless available_actions.include?(action)
 end
 
 app = Giternal::App.new(FileUtils.pwd)
-app.send(action)
+app.run(action)

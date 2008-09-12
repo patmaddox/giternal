@@ -16,6 +16,17 @@ module Giternal
       config.each_repo {|r| r.unfreezify }
     end
 
+    def run(action)
+      case action
+      when "freeze"
+        freezify
+      when "unfreeze"
+        unfreezify
+      else
+        send(action)
+      end
+    end
+
     def config
       return @config if @config
 

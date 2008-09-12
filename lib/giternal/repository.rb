@@ -1,3 +1,5 @@
+require 'fileutils'
+
 module Giternal
   class Repository
     def initialize(base_dir, name, repo_url, rel_path)

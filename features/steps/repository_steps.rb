@@ -21,6 +21,10 @@ class GiternalHelper
     @@giternal_base
   end
 
+  def self.run(*args)
+    `#{giternal_base}/bin/giternal #{args.join(' ')}`
+  end
+
   def self.create_repo(repo_name)
     Dir.chdir(tmp_path) do
       FileUtils.mkdir_p "externals/#{repo_name}"
@@ -60,26 +64,22 @@ class GiternalHelper
 
   def self.update_externals
     Dir.chdir(tmp_path + '/main_repo') do
-      `rake -f #{sakefile_path} giternal:update`
+      GiternalHelper.run('update')
     end
   end
 
   def self.freeze_externals
     Dir.chdir(tmp_path + '/main_repo') do
-      `rake -f #{sakefile_path} giternal:freeze`
+      GiternalHelper.run('freeze')
     end
   end
 
   def self.unfreeze_externals
     Dir.chdir(tmp_path + '/main_repo') do
-      `rake -f #{sakefile_path} giternal:unfreeze`
+      GiternalHelper.run('unfreeze')
     end
   end
   
-  def self.sakefile_path
-    File.expand_path(giternal_base + '/lib/tasks/giternal.rake')
-  end
-
   def self.repo_contents(path)
     Dir.chdir(path) do
       contents = `git cat-file -p HEAD`
