@@ -89,6 +89,12 @@ class GiternalHelper
       contents
     end
   end
+
+  def self.add_external_to_ignore(repo_name)
+    Dir.chdir(tmp_path + '/main_repo') do
+      `echo 'dependencies/#{repo_name}' >> .gitignore`
+    end
+  end
 end
 
 def be_up_to_date
@@ -146,6 +152,10 @@ end
 
 Given /content is added to '(.*)'/ do |repo_name|
   GiternalHelper.add_content(repo_name)
+end
+
+Given /^the external '(.*)' has been added to \.gitignore$/ do |repo_name|
+  GiternalHelper.add_external_to_ignore(repo_name)
 end
 
 When "I update the externals" do

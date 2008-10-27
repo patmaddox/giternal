@@ -28,7 +28,7 @@ module Giternal
         `tar czf .git.frozen.tgz .git`
         FileUtils.rm_rf('.git')
       end
-      `cd #{@base_dir} && git add #{repo_path}`
+      `cd #{@base_dir} && git add -f #{repo_path}`
       true
     end
 
