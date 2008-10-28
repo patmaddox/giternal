@@ -55,6 +55,12 @@ module Giternal
       end
     end
 
+    it "should simply return if updated when frozen" do
+      @repository.update
+      @repository.freezify
+      lambda { @repository.update }.should_not raise_error
+    end
+
     describe "unfreezify" do
       before(:each) do
         GiternalTest.create_repo('main')

@@ -10,6 +10,7 @@ module Giternal
     end
 
     def update
+      return true if frozen?
       FileUtils.mkdir_p checkout_path unless File.exist?(checkout_path)
       if File.exist?(repo_path)
         if !File.exist?(repo_path + '/.git')
@@ -39,6 +40,10 @@ module Giternal
       end
       `cd #{@base_dir} && git rm -r --cached #{repo_path}`
       true
+    end
+
+    def frozen?
+      File.exist?(repo_path + '/.git.frozen.tgz')
     end
 
     private
