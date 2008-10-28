@@ -9,7 +9,12 @@ class GiternalHelper
     FileUtils.mkdir_p tmp_path
     Dir.chdir(tmp_path) do
       FileUtils.mkdir "main_repo"
-      `cd main_repo && git init`
+      Dir.chdir('main_repo') do
+        `git init`
+        `echo 'first content' > starter_repo`
+        `git add starter_repo`
+        `git commit -m "starter repo"`
+      end
     end
   end
 
