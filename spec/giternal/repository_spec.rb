@@ -61,6 +61,14 @@ module Giternal
       lambda { @repository.update }.should_not raise_error
     end
 
+    it "should simply return when made to freeze before checked out" do
+      lambda { @repository.freezify }.should_not raise_error
+    end
+
+    it "should simply return when made to unfreeze before checked out" do
+      lambda { @repository.unfreezify }.should_not raise_error
+    end
+
     describe "unfreezify" do
       before(:each) do
         GiternalTest.create_repo('main')

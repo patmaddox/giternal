@@ -12,7 +12,7 @@ module Giternal
     def update
       return true if frozen?
       FileUtils.mkdir_p checkout_path unless File.exist?(checkout_path)
-      if File.exist?(repo_path)
+      if checked_out?
         if !File.exist?(repo_path + '/.git')
           raise "Directory '#{@name}' exists but is not a git repository"
         else
@@ -25,6 +25,8 @@ module Giternal
     end
 
     def freezify
+      return true unless checked_out?
+
       Dir.chdir(repo_path) do
         `tar czf .git.frozen.tgz .git`
         FileUtils.rm_rf('.git')
@@ -34,6 +36,8 @@ module Giternal
     end
 
     def unfreezify
+      return true unless checked_out?
+
       Dir.chdir(repo_path) do
         `tar xzf .git.frozen.tgz`
         FileUtils.rm('.git.frozen.tgz')
@@ -44,6 +48,10 @@ module Giternal
 
     def frozen?
       File.exist?(repo_path + '/.git.frozen.tgz')
+    end
+
+    def checked_out?
+      File.exist?(repo_path)
     end
 
     private
