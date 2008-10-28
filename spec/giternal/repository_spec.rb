@@ -61,11 +61,22 @@ module Giternal
       lambda { @repository.update }.should_not raise_error
     end
 
+    it "should simply return when made to freeze when already frozen" do
+      @repository.update
+      @repository.freezify
+      lambda { @repository.freezify }.should_not raise_error
+    end
+
     it "should simply return when made to freeze before checked out" do
       lambda { @repository.freezify }.should_not raise_error
     end
 
     it "should simply return when made to unfreeze before checked out" do
+      lambda { @repository.unfreezify }.should_not raise_error
+    end
+
+    it "should simply return when made to unfreeze when already unfrozen" do
+      @repository.update
       lambda { @repository.unfreezify }.should_not raise_error
     end
 

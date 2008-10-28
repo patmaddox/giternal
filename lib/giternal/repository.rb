@@ -25,18 +25,18 @@ module Giternal
     end
 
     def freezify
-      return true unless checked_out?
+      return true if frozen? || !checked_out?
 
       Dir.chdir(repo_path) do
         `tar czf .git.frozen.tgz .git`
-        FileUtils.rm_rf('.git')
+        FileUtils.rm_r('.git')
       end
       `cd #{@base_dir} && git add -f #{repo_path}`
       true
     end
 
     def unfreezify
-      return true unless checked_out?
+      return true unless frozen?
 
       Dir.chdir(repo_path) do
         `tar xzf .git.frozen.tgz`
