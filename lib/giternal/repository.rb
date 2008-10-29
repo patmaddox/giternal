@@ -31,7 +31,7 @@ module Giternal
         `tar czf .git.frozen.tgz .git`
         FileUtils.rm_r('.git')
       end
-      `cd #{@base_dir} && git add -f #{repo_path}`
+      `cd #{@base_dir} && git add -f #{rel_repo_path}`
       true
     end
 
@@ -42,7 +42,7 @@ module Giternal
         `tar xzf .git.frozen.tgz`
         FileUtils.rm('.git.frozen.tgz')
       end
-      `cd #{@base_dir} && git rm -r --cached #{repo_path}`
+      `cd #{@base_dir} && git rm -r --cached #{rel_repo_path}`
       true
     end
 
@@ -61,6 +61,10 @@ module Giternal
 
     def repo_path
       File.expand_path(checkout_path + '/' + @name)
+    end
+
+    def rel_repo_path
+      @rel_path + '/' + @name
     end
   end
 end
