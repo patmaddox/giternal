@@ -12,5 +12,6 @@ unless available_actions.include?(action)
   exit 1
 end
 
+Giternal::Repository.verbose = true
 app = Giternal::App.new(FileUtils.pwd)
 app.run(action)

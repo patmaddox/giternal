@@ -17,6 +17,18 @@ module Giternal
         should == 'foo'
     end
 
+    it "should not show any output when verbose mode is off" do
+      @repository.verbose = false
+      @repository.should_not_receive(:puts)
+      @repository.update
+    end
+
+    it "should not show output when verbose mode is on" do
+      @repository.verbose = true
+      @repository.should_receive(:puts).any_number_of_times
+      @repository.update
+    end
+
     it "should update the repo when it's already been checked out" do
       @repository.update
       GiternalHelper.add_content 'foo', 'newfile'

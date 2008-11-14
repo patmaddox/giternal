@@ -2,11 +2,17 @@ require 'fileutils'
 
 module Giternal
   class Repository
+    class << self
+      attr_accessor :verbose
+    end
+    attr_accessor :verbose
+
     def initialize(base_dir, name, repo_url, rel_path)
       @base_dir = base_dir
       @name = name
       @repo_url = repo_url
       @rel_path = rel_path
+      @verbose = self.class.verbose
     end
 
     def update
@@ -68,10 +74,9 @@ module Giternal
     end
 
 		def update_output(&block)
-			puts "Updating #{@name}"
+			puts "Updating #{@name}" if verbose
 			block.call
-			puts " ..updated"
-			puts
+			puts " ..updated\n" if verbose
 		end
   end
 end
