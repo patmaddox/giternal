@@ -16,10 +16,14 @@ module Giternal
         if !File.exist?(repo_path + '/.git')
           raise "Directory '#{@name}' exists but is not a git repository"
         else
+					puts "Updating #{@name}"
           `cd #{repo_path} && git pull 2>&1`
+					puts "#{@name} updated"
         end
       else
+				puts "Updating #{@name}"
         `cd #{checkout_path} && git clone #{@repo_url} #{@name}`
+				puts "#{@name} updated"
       end
       true
     end
