@@ -14,8 +14,19 @@ module Giternal
         YamlConfig.stub!(:new).and_return @mock_config
       end
 
-      it "should exit with an error when no config file exists" do
+      it "should look for config/giternal.yml" do
+        File.should_receive(:file?).with(/some_fake_dir\/config\/giternal\.yml/)
+        @app.config
+      end
+
+      it "should look for .giternal.yml if giternal.yml does not exist" do
         File.should_receive(:file?).with(/some_fake_dir\/config\/giternal\.yml/).and_return false
+        File.should_receive(:file?).with(/some_fake_dir\/\.giternal\.yml/).and_return true
+        @app.config
+      end
+
+      it "should exit with an error when no config file exists" do
+        File.stub!(:file?).and_return false
         $stderr.should_receive(:puts)
         @app.should_receive(:exit).with(1)
         @app.config

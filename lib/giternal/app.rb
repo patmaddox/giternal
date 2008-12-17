@@ -30,8 +30,11 @@ module Giternal
     def config
       return @config if @config
 
-      config_file = File.expand_path(@base_dir + '/config/giternal.yml')
-      unless File.file?(config_file)
+      config_file = ['config/giternal.yml', '.giternal.yml'].detect do |file|
+        File.file? File.expand_path(@base_dir + '/' + file)
+      end
+
+      if config_file.nil?
         $stderr.puts "config/giternal.yml is missing"
         exit 1
       end
