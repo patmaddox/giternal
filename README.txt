@@ -48,10 +48,6 @@ giternal unfreeze
 
 == NOTES:
 
-* You're probably using git for your own version control...and if so,
-  you need to add the giternal'd paths to .gitignore.  You don't want
-  to check them into version control!!
-
 * Deploying with vlad or capistrano simply requires you to run
   'giternal update' after the code has been checked out, if your
   externals are not frozen.  If deploying a codebase with frozen

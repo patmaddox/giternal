@@ -16,6 +16,8 @@ module Giternal
     end
 
     def update
+      git_ignore_self
+
       return true if frozen?
       FileUtils.mkdir_p checkout_path unless File.exist?(checkout_path)
       if checked_out?
@@ -77,6 +79,14 @@ module Giternal
 			puts "Updating #{@name}" if verbose
 			block.call
 			puts " ..updated\n" if verbose
+		end
+
+		def git_ignore_self
+		  Dir.chdir(@base_dir) do
+		    unless File.exist?('.gitignore') && File.read('.gitignore').include?(rel_repo_path)
+		      `echo '#{rel_repo_path}' >> .gitignore`
+		    end
+		  end
 		end
   end
 end

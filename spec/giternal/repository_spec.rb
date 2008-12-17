@@ -17,6 +17,23 @@ module Giternal
         should == 'foo'
     end
 
+    it "should be ignored from git" do
+      @repository.update
+      Dir.chdir(GiternalHelper.base_project_dir) do
+        # TODO: What I really want is to say it shouldn't include 'foo'
+        `git status`.should_not include('dependencies')
+      end
+    end
+
+    it "should only add itself to .gitignore if it's not already there" do
+      2.times { @repository.update }
+      Dir.chdir(GiternalHelper.base_project_dir) do
+        File.read('.gitignore').scan(/foo/).should have(1).item
+        # TODO: What I really want is to say it shouldn't include 'foo'
+        `git status`.should_not include('dependencies')
+      end
+    end
+
     it "should not show any output when verbose mode is off" do
       @repository.verbose = false
       @repository.should_not_receive(:puts)
