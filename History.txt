@@ -1,9 +1,0 @@
-== 0.0.2 2008-12-03
-
-* Uses giternal binary instead of sake
-* Freeze and unfreeze externals
-
-
-== 0.0.1 2008-08-02
-
-* Initial release
