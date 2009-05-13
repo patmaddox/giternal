@@ -29,15 +29,15 @@ ruby test_trackers.rb giternal|submodules|braid
 Put a file in your project named .giternal.yml or config/giternal.yml,
 that looks like this:
 
-local_dir_name:
-  repo: git://path/to/repo.git
-  path: local/sub/dir
+  local_dir_name:
+    repo: git://path/to/repo.git
+    path: local/sub/dir
 
 As an example, here's how you'd track rspec:
 
-rspec:
-  repo: git://github.com/dchelimsky/rspec.git
-  path: vendor/plugins
+  rspec:
+    repo: git://github.com/dchelimsky/rspec.git
+    path: vendor/plugins
 
 To pull the externals into your workspace, run "giternal update".  You
 should add vendor/plugins/rspec to .gitignore to keep the files from
