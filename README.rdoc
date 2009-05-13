@@ -9,7 +9,9 @@ In a nutshell, git submodules keep a reference to the head of each
 external project.  This means that if Joe and Sarah each make
 non-conflicting changes to their externals, and push the external
 reference in the main project, one of them will get a conflict on
-update.
+update.  Braid doesn't treat the externals as being separate from the
+main project, so any commits you make will go to the parent instead of
+the external.
 
 In order to demonstrate these issues more concretely, I've written a
 script that will simulate the workflow of making changes to an
