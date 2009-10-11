@@ -1,6 +1,6 @@
 class GiternalHelper
-  @@giternal_base = File.expand_path(File.dirname(__FILE__))
-  
+  @@giternal_base ||= File.expand_path(File.dirname(__FILE__))
+
   def self.create_main_repo
     FileUtils.mkdir_p tmp_path
     Dir.chdir(tmp_path) do
@@ -14,10 +14,6 @@ class GiternalHelper
     end
   end
 
-  def self.wipe_repos
-    FileUtils.rm_r(tmp_path) if File.directory?(tmp_path)
-  end
-
   def self.tmp_path
     "/tmp/giternal_test"
   end
@@ -27,7 +23,7 @@ class GiternalHelper
   end
 
   def self.base_project_dir
-    tmp_path + '/main_repo' 
+    tmp_path + '/main_repo'
   end
 
   def self.run(*args)
@@ -70,6 +66,7 @@ class GiternalHelper
 
   def self.clean!
     FileUtils.rm_rf tmp_path
+    %w(GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE).each {|var| ENV[var] = nil }
   end
 
   def self.update_externals
@@ -89,7 +86,7 @@ class GiternalHelper
       GiternalHelper.run('unfreeze')
     end
   end
-  
+
   def self.repo_contents(path)
     Dir.chdir(path) do
       contents = `git cat-file -p HEAD`

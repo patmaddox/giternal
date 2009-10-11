@@ -11,9 +11,9 @@ require 'fileutils'
 require 'giternal_helper'
 
 Spec::Runner.configuration.before(:each) do
-  GiternalHelper.wipe_repos
+  GiternalHelper.clean!
 end
 
 Spec::Runner.configuration.after(:each) do
-  GiternalHelper.wipe_repos
+  GiternalHelper.clean!
 end
