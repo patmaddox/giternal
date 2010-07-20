@@ -75,15 +75,15 @@ class GiternalHelper
     end
   end
 
-  def self.freeze_externals
+  def self.freeze_externals(*args)
     Dir.chdir(tmp_path + '/main_repo') do
-      GiternalHelper.run('freeze')
+      GiternalHelper.run("freeze", *args)
     end
   end
 
-  def self.unfreeze_externals
+  def self.unfreeze_externals(*args)
     Dir.chdir(tmp_path + '/main_repo') do
-      GiternalHelper.run('unfreeze')
+      GiternalHelper.run("unfreeze", *args)
     end
   end
 

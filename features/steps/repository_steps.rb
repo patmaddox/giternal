@@ -72,8 +72,16 @@ When "I freeze the externals" do
   GiternalHelper.freeze_externals
 end
 
+When /I freeze the external '(.*)'/ do |external_name|
+  GiternalHelper.freeze_externals("dependencies/#{external_name}")
+end
+
 When "I unfreeze the externals" do
   GiternalHelper.unfreeze_externals
+end
+
+When /I unfreeze the external '(.*)'/ do |external_name|
+  GiternalHelper.unfreeze_externals("dependencies/#{external_name}")
 end
 
 Then /'(.*)' should be checked out/ do |repo_name|

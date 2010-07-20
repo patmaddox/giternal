@@ -8,22 +8,38 @@ module Giternal
       config.each_repo {|r| r.update }
     end
 
-    def freezify
-      config.each_repo {|r| r.freezify }
+    def freezify(*dirs)
+      if dirs.empty?
+        config.each_repo {|r| r.freezify }
+      else
+        dirs.each do |dir|
+          if repo = config.find_repo(dir)
+            repo.freezify
+          end
+        end
+      end
     end
 
-    def unfreezify
-      config.each_repo {|r| r.unfreezify }
+    def unfreezify(*dirs)
+      if dirs.empty?
+        config.each_repo {|r| r.unfreezify }
+      else
+        dirs.each do |dir|
+          if repo = config.find_repo(dir)
+            repo.unfreezify
+          end
+        end
+      end
     end
 
-    def run(action)
+    def run(action, *args)
       case action
       when "freeze"
-        freezify
+        freezify(*args)
       when "unfreeze"
-        unfreezify
+        unfreezify(*args)
       else
-        send(action)
+        send(action, *args)
       end
     end
 

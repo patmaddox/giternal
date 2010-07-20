@@ -14,4 +14,4 @@ end
 
 Giternal::Repository.verbose = true
 app = Giternal::App.new(FileUtils.pwd)
-app.run(action)
+app.run(*ARGV)
