@@ -68,6 +68,10 @@ When "I update the externals" do
   GiternalHelper.update_externals
 end
 
+When /I update the external '(.*)'/ do |external_name|
+  GiternalHelper.update_externals("dependencies/#{external_name}")
+end
+
 When "I freeze the externals" do
   GiternalHelper.freeze_externals
 end

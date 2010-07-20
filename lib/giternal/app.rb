@@ -4,8 +4,16 @@ module Giternal
       @base_dir = base_dir
     end
 
-    def update
-      config.each_repo {|r| r.update }
+    def update(*dirs)
+      if dirs.empty?
+        config.each_repo {|r| r.update }
+      else
+        dirs.each do |dir|
+          if repo = config.find_repo(dir)
+            repo.update
+          end
+        end
+      end
     end
 
     def freezify(*dirs)

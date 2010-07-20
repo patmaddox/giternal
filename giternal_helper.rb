@@ -69,9 +69,9 @@ class GiternalHelper
     %w(GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE).each {|var| ENV[var] = nil }
   end
 
-  def self.update_externals
+  def self.update_externals(*args)
     Dir.chdir(tmp_path + '/main_repo') do
-      GiternalHelper.run('update')
+      GiternalHelper.run('update', *args)
     end
   end
 
