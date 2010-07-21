@@ -70,6 +70,14 @@ version.  If not, look at what it would take to take for my code and
 the library code to work.  If I feel like I can do it, I do, otherwise
 I unfreeze and stay on the older working version.
 
+= THANK YOUs
+
+Rollcall of awesome people who have contributed to giternal:
+
+Brian Takita & Honkster Team - ability to specify individual repos for
+  freeze/unfreeze/update
+
+
 == Copyright
 
 Copyright (c) 2009 Pat Maddox. See LICENSE for details.
