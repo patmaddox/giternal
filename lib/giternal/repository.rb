@@ -83,8 +83,16 @@ module Giternal
 
     def git_ignore_self
       Dir.chdir(@base_dir) do
-        unless File.exist?('.gitignore') && File.read('.gitignore').include?(rel_repo_path)
-          `echo '#{rel_repo_path}' >> .gitignore`
+        contents = File.read('.gitignore') if File.exist?('.gitignore')
+
+        unless contents.to_s.include?(rel_repo_path)
+          File.open('.gitignore', 'w') do |file|
+            if contents
+              file << contents
+              file << "\n" unless contents[-1] == 10 # ascii code for \n
+            end
+            file << rel_repo_path << "\n"
+          end
         end
       end
     end

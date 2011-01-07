@@ -22,16 +22,32 @@ module Giternal
       Dir.chdir(GiternalHelper.base_project_dir) do
         # TODO: What I really want is to say it shouldn't include 'foo'
         `git status`.should_not include('dependencies')
+        File.read('.gitignore').should == "dependencies/foo\n"
       end
     end
 
     it "should only add itself to .gitignore if it's not already there" do
-      2.times { @repository.update }
       Dir.chdir(GiternalHelper.base_project_dir) do
-        File.read('.gitignore').scan(/foo/).should have(1).item
-        # TODO: What I really want is to say it shouldn't include 'foo'
-        `git status`.should_not include('dependencies')
+        File.open('.gitignore', 'w') {|f| f << "dependencies/foo\n" }
       end
+
+      @repository.update
+      
+      Dir.chdir(GiternalHelper.base_project_dir) do
+        File.read('.gitignore').should == "dependencies/foo\n"
+      end
+    end
+
+    it "adds a newline if it needs to" do
+      Dir.chdir(GiternalHelper.base_project_dir) do
+        File.open('.gitignore', 'w') {|f| f << "something/else" }
+      end
+
+      @repository.update
+
+      Dir.chdir(GiternalHelper.base_project_dir) do
+        File.read('.gitignore').should == "something/else\ndependencies/foo\n"
+      end      
     end
 
     it "should not show any output when verbose mode is off" do
