@@ -3,3 +3,4 @@ pkg
 features/tmp
 test_repos
 .idea
+.rvmrc
