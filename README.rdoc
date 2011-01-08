@@ -80,4 +80,4 @@ Brian Takita & Honkster Team - ability to specify individual repos for
 
 == Copyright
 
-Copyright (c) 2009 Pat Maddox. See LICENSE for details.
+Copyright (c) 2009-2011 Pat Maddox. See LICENSE for details.
