@@ -1,6 +1,7 @@
 require 'rspec'
 $:.unshift(File.dirname(__FILE__) + '/../../lib')
 require 'giternal'
+$:.unshift(File.dirname(__FILE__) + '/../../spec')
 require 'giternal_test_helper'
 
 RSpec::Matchers.define :be_up_to_date do
