@@ -6,6 +6,7 @@ rescue LoadError
 end
 
 $:.unshift(File.dirname(__FILE__) + '/../lib')
+$:.unshift(File.dirname(__FILE__) + '/..')
 require 'giternal'
 require 'fileutils'
 require 'giternal_helper'

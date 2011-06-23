@@ -4,7 +4,7 @@ module Giternal
   describe App do
     before(:each) do
       @app = App.new("some_fake_dir")
-      @mock_config = stub("config", :null_object => true)
+      @mock_config = stub("config").as_null_object
     end
 
     describe "loading the config file" do
