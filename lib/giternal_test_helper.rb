@@ -1,5 +1,5 @@
 class GiternalHelper
-  @@giternal_base ||= File.expand_path(File.dirname(__FILE__))
+  @@giternal_base ||= File.expand_path(File.dirname(__FILE__) + '/..')
 
   def self.create_main_repo
     FileUtils.mkdir_p tmp_path

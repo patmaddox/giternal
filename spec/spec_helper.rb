@@ -6,10 +6,9 @@ rescue LoadError
 end
 
 $:.unshift(File.dirname(__FILE__) + '/../lib')
-$:.unshift(File.dirname(__FILE__) + '/..')
 require 'giternal'
 require 'fileutils'
-require 'giternal_helper'
+require 'giternal_test_helper'
 
 RSpec.configure do |config|
   config.before { GiternalHelper.clean! }

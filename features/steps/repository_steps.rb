@@ -1,7 +1,7 @@
 require 'rspec'
 $:.unshift(File.dirname(__FILE__) + '/../../lib')
 require 'giternal'
-require 'giternal_helper'
+require 'giternal_test_helper'
 
 RSpec::Matchers.define :be_up_to_date do
   match do |actual_repo_name|
@@ -25,7 +25,7 @@ RSpec::Matchers.define :be_added_to_commit_index do
       to_be_committed_regex = /new file:\W+dependencies\/#{actual_repo_name}/
       untracked_files_regex = /Untracked files:.*#{actual_repo_name}/
       status =~ to_be_committed_regex && !(flattened_status =~ untracked_files_regex)
-    end    
+    end
   end
 end
 

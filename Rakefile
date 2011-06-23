@@ -23,29 +23,28 @@ RSpec::Core::RakeTask.new(:spec)
 
 task :spec => :check_dependencies
 
-#begin
-#  require 'cucumber/rake/task'
-#  Cucumber::Rake::Task.new(:features)
-#
-#  task :features => :check_dependencies
-#rescue LoadError
-#  task :features do
-#    abort "Cucumber is not available. In order to run features, you must: sudo gem install cucumber"
-#  end
-#end
+begin
+  require 'cucumber/rake/task'
+  Cucumber::Rake::Task.new(:features)
+
+  task :features => :check_dependencies
+rescue LoadError
+  task :features do
+    abort "Cucumber is not available. In order to run features, you must: sudo gem install cucumber"
+  end
+end
 
 task :default => [:spec, :features]
 
-require 'rake/rdoctask'
-Rake::RDocTask.new do |rdoc|
-  if File.exist?('VERSION')
-    version = File.read('VERSION')
-  else
-    version = ""
-  end
-
-  rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "giternal #{version}"
-  rdoc.rdoc_files.include('README*')
-  rdoc.rdoc_files.include('lib/**/*.rb')
-end
+#Rake::RDocTask.new do |rdoc|
+#  if File.exist?('VERSION')
+#    version = File.read('VERSION')
+#  else
+#    version = ""
+#  end
+#
+#  rdoc.rdoc_dir = 'rdoc'
+#  rdoc.title = "giternal #{version}"
+#  rdoc.rdoc_files.include('README*')
+#  rdoc.rdoc_files.include('lib/**/*.rb')
+#end
