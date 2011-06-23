@@ -8,10 +8,10 @@ begin
     gem.summary = %Q{Non-sucky git externals}
     gem.description = %Q{Giternal provides dead-simple management of external git dependencies. It only stores a small bit of metadata, letting you actively develop in any of the repos. Come deploy time, you can easily freeze freeze all the dependencies to particular versions}
     gem.email = "pat.maddox@gmail.com"
-    gem.homepage = "http://github.com/pat-maddox/giternal"
+    gem.homepage = "http://github.com/patmaddox/giternal"
     gem.authors = ["Pat Maddox"]
-    gem.add_development_dependency "rspec"
-    gem.add_development_dependency "cucumber"
+    gem.add_development_dependency "rspec", "~> 2"
+    gem.add_development_dependency "cucumber", "~> 1"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
 rescue LoadError

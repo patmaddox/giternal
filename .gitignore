@@ -4,3 +4,4 @@ features/tmp
 test_repos
 .idea
 .rvmrc
+*.gem
