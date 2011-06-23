@@ -36,8 +36,8 @@ module Giternal
       return true if frozen? || !checked_out?
 
       Dir.chdir(repo_path) do
-        `find .git | sort | xargs tar czf .git.frozen.tgz`
-        FileUtils.rm_r('.git')
+        `tar czf .git.frozen.tgz .git`
+         FileUtils.rm_r('.git')
       end
       `cd #{@base_dir} && git add -f #{rel_repo_path}`
       true

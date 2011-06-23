@@ -32,7 +32,7 @@ module Giternal
       end
 
       @repository.update
-      
+
       Dir.chdir(GiternalHelper.base_project_dir) do
         File.read('.gitignore').should == "dependencies/foo\n"
       end
@@ -47,7 +47,7 @@ module Giternal
 
       Dir.chdir(GiternalHelper.base_project_dir) do
         File.read('.gitignore').should == "something/else\ndependencies/foo\n"
-      end      
+      end
     end
 
     it "should not show any output when verbose mode is off" do
@@ -132,17 +132,25 @@ module Giternal
                                      GiternalHelper.external_path('external'),
                                      'dependencies')
         @repository.update
-        @repository.freezify
       end
 
       it "should unarchive the .git dir" do
+        @repository.freezify
         @repository.unfreezify
         File.directory?(GiternalHelper.checked_out_path('external/.git')).should be_true
       end
 
       it "should remove the archived file" do
+        @repository.freezify
         @repository.unfreezify
         File.file?(GiternalHelper.checked_out_path('external/.git.frozen.tgz')).should be_false
+      end
+
+      it "leaves the .git directory exactly how it found it" do
+        expect {
+          @repository.freezify
+          @repository.unfreezify
+        }.to_not change { Dir[GiternalHelper.checked_out_path('external/.git/**/**')] }
       end
     end
   end
