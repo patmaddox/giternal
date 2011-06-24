@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Pat Maddox"]
-  s.date = %q{2011-06-23}
+  s.date = %q{2011-06-24}
   s.description = %q{Giternal provides dead-simple management of external git dependencies. It only stores a small bit of metadata, letting you actively develop in any of the repos. Come deploy time, you can easily freeze freeze all the dependencies to particular versions}
   s.email = %q{pat.maddox@gmail.com}
   s.executables = ["giternal"]
@@ -23,6 +23,7 @@ Gem::Specification.new do |s|
     "LICENSE",
     "README.rdoc",
     "Rakefile",
+    "UPGRADING.rdoc",
     "VERSION.yml",
     "bin/giternal",
     "features/checking_out_externals.feature",
@@ -43,7 +44,7 @@ Gem::Specification.new do |s|
     "test_trackers.rb"
   ]
   s.homepage = %q{http://github.com/patmaddox/giternal}
-  s.post_install_message = %q{IMPORTANT - Please see UPGRADING for important changes}
+  s.post_install_message = %q{IMPORTANT - Please see UPGRADING.rdoc for important changes}
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.7.2}
   s.summary = %q{Non-sucky git externals}
