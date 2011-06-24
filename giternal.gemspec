@@ -43,6 +43,7 @@ Gem::Specification.new do |s|
     "test_trackers.rb"
   ]
   s.homepage = %q{http://github.com/patmaddox/giternal}
+  s.post_install_message = %q{IMPORTANT - Please see UPGRADING for important changes}
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.7.2}
   s.summary = %q{Non-sucky git externals}

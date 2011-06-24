@@ -12,6 +12,7 @@ begin
     gem.authors = ["Pat Maddox"]
     gem.add_development_dependency "rspec", "~> 2"
     gem.add_development_dependency "cucumber", "~> 1"
+    gem.post_install_message = "IMPORTANT - Please see UPGRADING.rdoc for important changes"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
 rescue LoadError

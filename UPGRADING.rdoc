@@ -1,0 +1,17 @@
+# Upgrading giternal
+
+## 0.1.0 -> *
+
+0.1.0 has a nasty bug that corrupts a checked out external's .git
+repository. This happens because giternal sorts the files in .git before piping
+them to tar, in order to minimize repo bloat. Unfortunately, tar doesn't seem to
+like that, and so when unfreezing the repository it loses many of the files in
+.git/objects. Instant repository corruption.
+
+### What you can do
+
+The best thing to do is probably to wipe your external dir and do a giternal
+update. This will check out a fresh copy of the dependency, along with its
+uncorrupted git repo.
+
+I don't actually think there's anything else you can do. Sorry :(
