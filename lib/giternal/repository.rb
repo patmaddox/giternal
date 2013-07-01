@@ -40,7 +40,7 @@ module Giternal
         `tar czf .git.frozen.tgz .git`
          FileUtils.rm_r('.git')
       end
-      `cd #{@base_dir} && git add -f #{rel_repo_path.shellescape}`
+      `cd #{@base_dir.shellescape} && git add -f #{rel_repo_path.shellescape}`
       true
     end
 
