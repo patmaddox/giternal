@@ -1,4 +1,5 @@
 require 'fileutils'
+require 'optparse/shellwords'
 
 module Giternal
   class Repository
@@ -24,10 +25,10 @@ module Giternal
         if !File.exist?(repo_path + '/.git')
           raise "Directory '#{@name}' exists but is not a git repository"
         else
-          update_output { `cd #{repo_path} && git pull 2>&1` }
+          update_output { `cd #{repo_path.shellescape} && git pull 2>&1` }
         end
       else
-        update_output { `cd #{checkout_path} && git clone #{@repo_url} #{@name}` }
+        update_output { `cd #{checkout_path.shellescape} && git clone #{@repo_url} #{@name}` }
       end
       true
     end
@@ -39,7 +40,7 @@ module Giternal
         `tar czf .git.frozen.tgz .git`
          FileUtils.rm_r('.git')
       end
-      `cd #{@base_dir} && git add -f #{rel_repo_path}`
+      `cd #{@base_dir} && git add -f #{rel_repo_path.shellescape}`
       true
     end
 
@@ -50,7 +51,7 @@ module Giternal
         `tar xzf .git.frozen.tgz`
         FileUtils.rm('.git.frozen.tgz')
       end
-      `cd #{@base_dir} && git rm -r --cached #{rel_repo_path}`
+      `cd #{@base_dir.shellescape} && git rm -r --cached #{rel_repo_path.shellescape}`
       true
     end
 
