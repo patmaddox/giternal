@@ -78,7 +78,11 @@ module Giternal
     def update_output(&block)
       puts "Updating #{@name}" if verbose
       block.call
-      puts " ..updated\n" if verbose
+      if verbose
+        branch = `cd #{checkout_path} && git rev-parse --abbrev-ref HEAD`.strip
+        refname = `cd #{checkout_path} && git rev-parse --short HEAD`.strip
+        puts " ..updated to #{refname} on #{branch}\n"
+      end
     end
 
     def git_ignore_self
