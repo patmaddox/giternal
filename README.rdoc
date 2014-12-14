@@ -1,3 +1,7 @@
+= Installation
+
+`gem install giternal`
+
 = Why giternal
 
 There are a couple tools out there that keep track of git externals
