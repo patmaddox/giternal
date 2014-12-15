@@ -36,6 +36,7 @@ that looks like this:
   local_dir_name:
     repo: git://path/to/repo.git
     path: local/sub/dir
+    branch: any_branch_in_repo
 
 As an example, here's how you'd track rspec:
 
@@ -43,9 +44,18 @@ As an example, here's how you'd track rspec:
     repo: git://github.com/dchelimsky/rspec.git
     path: vendor/plugins
 
+Or alternatively, here's how to track the experimental branch of rspec:
+
+  rspec:
+    repo: git://github.com/dchelimsky/rspec.git
+    path: vendor/plugins
+    branch: experimental
+
 To pull the externals into your workspace, run "giternal update".  You
 should add vendor/plugins/rspec to .gitignore to keep the files from
 being added to your main repo.
+
+If you specify a branch, on a fresh check out it will check out that branch. If you already have a different branch checked out, it will switch to the specified branch (CAUTION! YOU WILL LOSE UNCOMMITED CHANGES!) 
 
 = Deploying externals
 

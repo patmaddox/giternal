@@ -7,11 +7,16 @@ module Giternal
     end
     attr_accessor :verbose
 
-    def initialize(base_dir, name, repo_url, rel_path)
+    def initialize(base_dir, name, repo_url, rel_path, branch=nil)
       @base_dir = base_dir
       @name = name
       @repo_url = repo_url
       @rel_path = rel_path
+      if branch != nil
+        @branch = branch
+      else
+        @branch = "master"
+      end
       @verbose = self.class.verbose
     end
 
@@ -24,10 +29,14 @@ module Giternal
         if !File.exist?(repo_path + '/.git')
           raise "Directory '#{@name}' exists but is not a git repository"
         else
+          current_branch = (`cd #{repo_path} && git branch`).split[1]
+          if current_branch != @branch
+            `cd #{repo_path} && git checkout #{@branch}`
+          end
           update_output { `cd #{repo_path} && git pull 2>&1` }
         end
       else
-        update_output { `cd #{checkout_path} && git clone #{@repo_url} #{@name}` }
+        update_output { `cd #{checkout_path} && git clone #{@repo_url} #{@name} -b #{@branch}` }
       end
       true
     end

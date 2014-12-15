@@ -23,7 +23,7 @@ module Giternal
     private
     def repositories
       @config_hash.map do |name, attributes|
-        Repository.new(@base_dir, name, attributes["repo"], attributes["path"])
+        Repository.new(@base_dir, name, attributes["repo"], attributes["path"], attributes["branch"])
       end
     end
   end
