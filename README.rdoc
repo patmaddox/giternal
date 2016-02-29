@@ -1,3 +1,13 @@
+= giternal is *unmaintained*
+
+If you want the functionality that giternal provides, but in a tool that's being maintained, you should consider:
+
+* http://myrepos.branchable.com
+* https://github.com/RichiH/vcsh
+* forking it
+
+Thanks to @jwhitley for the suggested alternatives.
+
 = Installation
 
 `gem install giternal`
