@@ -16,38 +16,17 @@ module Giternal
       end
     end
 
-    def freezify(*dirs)
-      if dirs.empty?
-        config.each_repo {|r| r.freezify }
-      else
-        dirs.each do |dir|
-          if repo = config.find_repo(dir)
-            repo.freezify
-          end
-        end
-      end
-    end
-
-    def unfreezify(*dirs)
-      if dirs.empty?
-        config.each_repo {|r| r.unfreezify }
-      else
-        dirs.each do |dir|
-          if repo = config.find_repo(dir)
-            repo.unfreezify
-          end
-        end
-      end
-    end
-
     def run(action, *args)
       case action
-      when "freeze"
-        freezify(*args)
-      when "unfreeze"
-        unfreezify(*args)
-      else
-        send(action, *args)
+        when "freeze"
+          _do_repo_action('freezify', *args)
+        when "unfreeze", "thaw"
+          _do_repo_action('unfreezify', *args)
+        when "status"
+          puts "Frozen?"
+          _do_repo_action('show_status', *args)
+        else
+          send(action, *args)
       end
     end
 
@@ -64,6 +43,20 @@ module Giternal
       end
 
       @config = YamlConfig.new(@base_dir, File.read(config_file))
+    end
+
+
+
+    def _do_repo_action(action, *dirs)
+      if dirs.empty?
+        config.each_repo {|r| r.send(action)}
+      else
+        dirs.each do |dir|
+          if repo = config.find_repo(dir)
+            repo.send(action)
+          end
+        end
+      end
     end
   end
 end
